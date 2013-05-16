@@ -99,8 +99,7 @@
       $('#timer').html('30');
     }
     $('#slide').attr('src', x.image);
-    talk2;
-
+    talk2();
     return interval();
   };
 
