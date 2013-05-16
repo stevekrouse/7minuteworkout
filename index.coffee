@@ -58,7 +58,7 @@ window.shift = ->
     exercises = exercises[1..]
   else
     $('#timer').html '0'
-    speak 'Done!'
+    talk 'Done!'
 
 setSlide = (x) ->
   if x.title is 'Rest'
@@ -66,7 +66,7 @@ setSlide = (x) ->
   else
     $('#timer').html '30'
   $('#slide').attr('src', x.image)
-  speak x.title
+  talk x.title
   interval()
 
 window.interval = () -> setTimeout(->
@@ -79,3 +79,14 @@ window.interval = () -> setTimeout(->
       $('#timer').html seconds
       interval()
   , 1000)
+
+
+talk = (x) ->
+  $.getJSON("http://speech.jtalkplugin.com/api/?callback=?", {speech: x, usecache: "false" }, (json)->
+    if (json.success == true)
+      audiofile = json.data.url
+      $('#music').attr('src',audiofile)
+      $('#music').get(0).play()
+    else
+      alert("Error:" + json.msg);
+  )
